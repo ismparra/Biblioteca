@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle del Libro</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/libro_info.css') }}">
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/square.css') }}">
+</head>
+<body>
+
+<div class="square"></div>
+<div class="square"></div>
+<div class="square"></div>
+<div class="square"></div>
+<div class="square"></div>
+
+<div class="container">
+
+    <div class="header">
+        <h1>Detalle del Libro</h1>
+        <form action="/", method="post">
+            <input type="hidden" name="q" value="{{query}}">
+            <button class="btn" type="submit" name="indx" value="{{ant}}">
+                Volver</button>
+        </form>
+    </div>
+
+    <div class="card">
+
+        <div class="card-header">
+            <h2>{{ libro.titulo }}</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="label">ID Libro</div>
+                <div class="value">{{ libro.id_libro }}</div>
+            </div>
+
+            <div class="row">
+                <div class="label">Título</div>
+                <div class="value">{{ libro.titulo }}</div>
+            </div>
+
+            <div class="row">
+                <div class="label">Autor</div>
+                <div class="value">{{ libro.autor }}</div>
+            </div>
+
+            <div class="row">
+                <div class="label">Categoría</div>
+                <div class="value">{{ libro.categoria }}</div>
+            </div>
+
+            <div class="actions">
+
+                <form method="POST" action="/editar_libro">
+                    <input type="hidden" name="id_libro" value="{{ libro.id_libro }}">
+                    <button class="btn" type="submit">
+                        Editar
+                    </button>
+                </form>
+
+                <form method="POST" action="/eliminar_libro">
+                    <input type="hidden" name="id_libro" value="{{ libro.id_libro }}">
+                    <button class="btn" type="submit">
+                        Eliminar
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

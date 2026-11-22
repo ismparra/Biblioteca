@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  text-align: center;
+  overflow-x: hidden;
+}
+header { padding: 16px 28px; text-align: left; }
+h1 { margin: 0; font-weight: 400; }
+.bar {
+  height: 2px;
+  margin: 0 40px;
+  background: linear-gradient(90deg, transparent, #6cc417, transparent);
+}
+
+#stage {
+  position: relative;
+  width: 300px; height: 420px;
+  margin: 70px auto 190px;          /* espacio para el reflejo */
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  user-select: none;
+  touch-action: pan-y;              /* el gesto horizontal lo maneja el JS */
+}
+.card {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  border-radius: 12px; cursor: pointer;
+  transition: transform .4s, opacity .4s, filter .4s;
+  -webkit-box-reflect: below 4px linear-gradient(transparent 65%, rgba(255,255,255,.25));
+}
+.card.sel { box-shadow: 0 0 40px rgba(108,196,23,.25); }
+
+footer { position: relative; z-index: 200; padding-bottom: 30px; }
+footer h2 { margin: 0 0 6px; }
+footer p { margin: 0 0 14px; color: #bbb; }
+
+#dots i {
+  display: inline-block; width: 8px; height: 8px; margin: 0 4px;
+  border-radius: 50%; background: #555; cursor: pointer;
+}
+#dots i.on { background: #6cc417; }
+
+.hint { color: #777; font-size: 14px; margin-top: 12px; }
+
+.btn, button {
+  display: inline-block;
+  margin: 8px; padding: 8px 14px;
+  background: #222; color: #fff;
+  border: 1px solid #444; border-radius: 6px;
+  font: inherit; cursor: pointer;
+}
+.btn:hover, button:hover { border-color: #6cc417; }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Biblioteca</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/square.css') }}">
+  </head>
+  <body>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <header>
+      <div style="display:flex; gap:8px; right:0; position: absolute; ">
+        <form action="/" method="GET">
+          <input
+          type="text"
+          name="q" id="q"
+          placeholder="Buscar libro..."
+          value="{{ q if q else '' }}"> 
+            <button type="submit">Buscar</button>
+          </form>
+          <a class="btn" href="/addBook">+ Agregar libros</a>
+        </div>
+        <h1><a href="/" style="text-decoration: none; color: aliceblue;">Bienvenido</a></h1>
+      </header>
+      
+      <div class="bar" id="bar" data-indx="{{ curr|default(0) }}"></div>
+      
+      <div id="stage" aria-label="Galería 3D">
+        {% if books %} 
+        {% for b in books %}
+        <div class="card"
+        data-title="{{ b[0] }}" 
+        data-id = {{b[1]}}
+        data-sub="Imagen de ejemplo"
+        style="background-image:url('{{ url_for('cover', i=b[1]) }}')">
+      </div>
+      {% endfor %}
+      {% else %}
+      No hay libros registrados.
+      {% endif %}
+    </div>
+    
+    <footer>
+      <h2 id="title"></h2>
+      <p id="sub"></p>
+      <div class="dots" id="dots"></div>
+      <div class="hint">← → , rueda del ratón o arrastra para navegar</div>
+      <div class="hint">Enter, ver información del libro</div>
+    </footer>
+
+    
+<form id="bookForm" action="/libro/info" method="POST" hidden>
+    <input type="hidden" name="ID" id="bookId">
+    <input type="hidden" name="curr" id="bookCurr">
+    <input type="hidden" name="query" id="bookQuery">
+</form>
+
+<script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+</body>
+</html>
