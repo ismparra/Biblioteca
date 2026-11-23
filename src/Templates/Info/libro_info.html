@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Detalle del Libro</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/noscrolleable.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/libro_info.css') }}">
  <link rel="stylesheet" href="{{ url_for('static', filename='css/square.css') }}">
 </head>
@@ -54,6 +55,7 @@
                 <div class="value">{{ libro.categoria }}</div>
             </div>
 
+            {%if user and user.rol == "administrador"%}
             <div class="actions">
 
                 <form method="POST" action="/libros/editar">
@@ -71,6 +73,7 @@
                 </form>
 
             </div>
+            {% endif %}
 
         </div>
 

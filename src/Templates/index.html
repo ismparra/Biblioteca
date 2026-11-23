@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Biblioteca</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/noscrolleable.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/square.css') }}">
   </head>
   <body>
@@ -13,6 +15,12 @@
     <div class="square"></div>
     <div class="square"></div>
     <div class="square"></div>
+    {% if Message %}
+      <div class="alert-message">
+          {{ Message }}
+      </div>
+    {% endif %}
+
     <header>
       <div style="display:flex; gap:8px; right:0; position: absolute; ">
         <form action="/" method="GET">
@@ -23,11 +31,36 @@
           value="{{ q if q else '' }}"> 
             <button type="submit">Buscar</button>
           </form>
-          <a class="btn" href="/addBook">+ Agregar libros</a>
+          <button id="admin-btn">Admin</button>
         </div>
         <h1><a href="/" style="text-decoration: none; color: aliceblue;">Bienvenido</a></h1>
       </header>
       
+      <div id="login-modal" class="login-modal">
+          <form class="login-box" method="POST" action="/admin/login">
+              <h2>Acceso Administrativo</h2>
+
+              <input
+                  type="text"
+                  name="usuario"
+                  placeholder="Usuario"
+                  required
+              >
+
+              <input
+                  type="password"
+                  name="password"
+                  placeholder="Contraseña"
+                  required
+              >
+
+              <div class="actions">
+                  <button type="submit">Ingresar</button>
+                  <button type="button" id="close-login">Cancelar</button>
+              </div>
+          </form>
+      </div>
+
       <div class="bar" id="bar" data-indx="{{ curr|default(0) }}"></div>
       
       <div id="stage" aria-label="Galería 3D">
@@ -53,13 +86,12 @@
       <div class="hint">Enter, ver información del libro</div>
     </footer>
 
-    
-<form id="bookForm" action="/libro/info" method="POST" hidden>
-    <input type="hidden" name="ID" id="bookId">
-    <input type="hidden" name="curr" id="bookCurr">
-    <input type="hidden" name="query" id="bookQuery">
-</form>
-
-<script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+    <form id="bookForm" action="/libro/info" method="POST" hidden>
+        <input type="hidden" name="ID" id="bookId">
+        <input type="hidden" name="curr" id="bookCurr">
+        <input type="hidden" name="query" id="bookQuery">
+    </form>
+  <script src="{{ url_for('static', filename='js/carousel.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 </html>

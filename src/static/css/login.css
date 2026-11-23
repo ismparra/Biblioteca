@@ -1,0 +1,86 @@
+.login-modal{
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    backdrop-filter:blur(10px);
+    background:rgba(0,0,0,.75);
+
+    z-index:9999;
+}
+
+.login-modal.open{
+    display:flex;
+}
+
+.login-box{
+    width:350px;
+
+    background:rgba(10,10,10,.95);
+    border:1px solid #00ddff;
+
+    border-radius:12px;
+
+    padding:30px;
+
+    box-shadow:
+        0 0 20px #002fff,
+        0 0 50px #00c8ff;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:15px;
+}
+
+.login-box h2{
+    color:white;
+    text-align:center;
+    margin:0;
+}
+
+.login-box input{
+    padding:12px;
+
+    background:#111;
+    color:white;
+
+    border:1px solid #333;
+    border-radius:6px;
+}
+
+.login-box input:focus{
+    outline:none;
+
+    border-color:#00eeff;
+
+    box-shadow:0 0 10px #00aaff;
+}
+
+.actions{
+    display:flex;
+    gap:10px;
+}
+
+.actions button{
+    flex:1;
+
+    padding:10px;
+    cursor:pointer;
+
+    border:none;
+    border-radius:6px;
+}
+
+.actions button[type="submit"]{
+    background:#00fff7;
+    color:black;
+    font-weight:bold;
+}
+
+.actions button[type="button"]{
+    background:#222;
+    color:white;
+}
