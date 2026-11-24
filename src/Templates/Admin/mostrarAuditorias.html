@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/viewUsers.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">Biblioteca</div>
+
+        <nav class="menu">
+            <a href="/">Inicio</a>
+            <a href="/admin/panel">Panel</a>
+            <a href="/admin/panel/usuarios">Usuarios</a>
+            <a href="/admin/panel/alumnos">Alumnos</a>
+    </nav>
+    </aside>
+
+    <section class="panel">
+    <h2>Auditorias</h2>
+
+    <div class="tabla-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tabla</th>
+                    <th>Operacion</th>
+                    <th>Fecha_Hora</th>
+                    <th>Usuario</th>
+                    <th>Datos_anteriores</th>
+                    <th>Datos_nuevos</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for a in auditorias %}
+                <tr>
+                    <td>{{ a.id_auditoria }}</td>
+                    <td>{{ a.tabla }}</td>
+                    <td>{{ a.operacion }}</td>
+                    <td>{{ a.fecha_hora }}</td>
+                    <td>{{ a.usuario }}</td>
+                    <td>{{ a.datos_anteriores }}</td>
+                    <td>{{ a.datos_nuevos }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

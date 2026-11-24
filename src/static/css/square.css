@@ -42,7 +42,7 @@
     to{
         transform:
             translate(-50%,-50%)
-            rotate(25deg)
+            rotate(-25deg)
             scale(0);
         opacity:0;
     }

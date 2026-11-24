@@ -55,8 +55,15 @@
                 <div class="value">{{ libro.categoria }}</div>
             </div>
 
-            {%if user and user.rol == "administrador"%}
+            {%if user and user.rol == "administrador" and user.estado == "activo" %}
             <div class="actions">
+
+                <form method="POST" action="/libros/ejemplar">
+                    <input type="hidden" name="id_libro" value="{{ libro.id_libro }}">
+                    <button class="btn" type="submit">
+                        Registrar ejemplar
+                    </button>
+                </form>
 
                 <form method="POST" action="/libros/editar">
                     <input type="hidden" name="id_libro" value="{{ libro.id_libro }}">

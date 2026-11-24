@@ -27,8 +27,10 @@ h1 { margin: 0; font-weight: 400; }
   touch-action: pan-y;              /* el gesto horizontal lo maneja el JS */
 }
 .card {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
+  position: absolute; 
+  inset: 0;
+  background-size: cover;
+  background-position: center;
   border-radius: 12px; cursor: pointer;
   transition: transform .4s, opacity .4s, filter .4s;
   -webkit-box-reflect: below 4px linear-gradient(transparent 65%, rgba(255,255,255,.25));
@@ -71,6 +73,8 @@ footer p {
   background: #222; color: #fff;
   border: 1px solid #444; border-radius: 6px;
   font: inherit; cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .btn:hover,

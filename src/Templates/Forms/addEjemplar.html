@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/libros/ejemplar/registrar" method="POST" class="book-form">
+
+        <h2>Registrar Ejemplar</h2>
+        <p>Registra el ejemplar de un libro de la biblioteca</p>
+
+        <div class="input-group">
+            <label for="codigo">Codigo de barras</label>
+            <input
+                type="text"
+                id="codigo"
+                name="codigo"
+                maxlength="200"
+                required>
+        </div>
+
+        <div class="input-group">
+            <label for="id">Id libro</label>
+            <input
+                type="text"
+                id="id"
+                name="id"
+                maxlength="100"
+                required>
+        </div>
+
+        <button type="submit">
+            Guardar Libro
+        </button>
+
+    </form>
+</body>
+</html>

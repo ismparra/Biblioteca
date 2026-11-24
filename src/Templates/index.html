@@ -23,6 +23,9 @@
 
     <header>
       <div style="display:flex; gap:8px; right:0; position: absolute; ">
+        {%if session and session.rol == "administrador"%}
+        <a class="btn" href="/admin/panel">Admin Panel</a>
+        {% endif %}
         <form action="/" method="GET">
           <input
           type="text"
@@ -31,7 +34,11 @@
           value="{{ q if q else '' }}"> 
             <button type="submit">Buscar</button>
           </form>
+          {% if session %}
+          <a class="btn" href="/close_session">Cerrar Session</a>
+          {% else %}
           <button id="admin-btn">Admin</button>
+          {% endif %}
         </div>
         <h1><a href="/" style="text-decoration: none; color: aliceblue;">Bienvenido</a></h1>
       </header>
@@ -69,7 +76,6 @@
         <div class="card"
         data-title="{{ b[0] }}" 
         data-id = {{b[1]}}
-        data-sub="Imagen de ejemplo"
         style="background-image:url('{{ url_for('cover', i=b[1]) }}')">
       </div>
       {% endfor %}

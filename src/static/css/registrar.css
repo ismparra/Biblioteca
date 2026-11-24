@@ -1,0 +1,130 @@
+.panel{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    padding:40px;
+}
+
+.panel-header{
+    background:linear-gradient(
+        135deg,
+        #1aa8ff,
+        #2d5fff
+    );
+    padding:32px;
+    border-radius:25px;
+}
+
+.panel-header h1{
+    margin:0;
+    font-size:42px;
+}
+
+.panel-header p{
+    margin-top:10px;
+    opacity:.8;
+}
+
+.card{
+    background:#1d2940;
+    padding:28px;
+    border-radius:24px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.field input,
+.scan-row input{
+    background:#09152f;
+    border:none;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+}
+
+.scan-row{
+    display:flex;
+    gap:16px;
+}
+
+.scan-row button{
+    background:#29b6ff;
+    border:none;
+    color:black;
+    font-weight:bold;
+    border-radius:12px;
+    padding:0 24px;
+    cursor:pointer;
+}
+
+.table-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.prestamo-lista{
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.libro-item{
+    background:#09152f;
+    border-radius:16px;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.libro-info h3{
+    margin:0;
+}
+
+.libro-info p{
+    margin:6px 0;
+    color:#aaa;
+}
+
+.remove-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:#ff4040;
+    color:white;
+    font-size:20px;
+    cursor:pointer;
+}
+
+.resumen{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.registrar-btn{
+    background:#2ecc71;
+    color:white;
+    border:none;
+    border-radius:14px;
+    padding:14px 28px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+h1, h2, h3, p, small, span, strong, label
+{
+    color: white;
+}
+
+body
+{
+    background-color: black;
+}

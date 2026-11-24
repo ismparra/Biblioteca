@@ -1,7 +1,7 @@
 from BD.connection import ejecutar, consultar
 
 def insertar_libro(titulo, autor, categoria):
-    ejecutar(
+    return ejecutar(
             "INSERT INTO libros (titulo, autor, categoria) VALUES (%s, %s, %s)",
             (titulo, autor, categoria)
         )
@@ -30,14 +30,21 @@ def buscar_libro(id):
         "SELECT * FROM LIBROS WHERE id_libro = %s",
         (id,))[0]
 
+def buscar_libro_cod(codigo):
+    return consultar("""
+            SELECT * 
+            FROM LIBROS NATURAL JOIN EJEMPLARES 
+            WHERE codigo_barras = %s""",
+            (codigo,))[0]
+
 def eliminar_1_libro(id):
-    ejecutar(
+    return ejecutar(
         "DELETE FROM LIBROS WHERE id_libro = %s",
         (id,)
     )
 
 def actualizar_1_libro(id, titulo, autor, categoia):
-    ejecutar(
+    return ejecutar(
         """UPDATE LIBROS
            SET titulo = %s,
                autor = %s,

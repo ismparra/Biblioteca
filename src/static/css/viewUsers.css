@@ -1,0 +1,60 @@
+.panel{
+    background:#1e2b47;
+    border-radius:20px;
+    padding:30px;
+}
+
+.panel h2{
+    margin-top:0;
+    color:white;
+}
+
+.tabla-container{
+    overflow-x:auto;
+}
+
+.tabla{
+    width:100%;
+    border-collapse:collapse;
+    color:white;
+}
+
+.tabla th,
+.tabla td{
+    padding:14px;
+    text-align:left;
+    border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.tabla th{
+    color:#42b8ff;
+}
+
+.acciones{
+    display:flex;
+    gap:8px;
+}
+
+.acciones form{
+    margin:0;
+}
+
+.acciones button{
+    padding:8px 14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#42b8ff;
+    color:black;
+    font-weight:bold;
+}
+
+.acciones .danger{
+    background:#d9534f;
+    color:white;
+}
+
+.success{
+    background:#54d94f;
+    color:white;
+}

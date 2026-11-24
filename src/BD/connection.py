@@ -21,4 +21,7 @@ def ejecutar(sql, params=None):
     cursor = conexion.cursor()
     cursor.execute(sql, params)
     conexion.commit()
+    filas_modificadas = cursor.rowcount
     cursor.close()
+    conexion.close()
+    return filas_modificadas

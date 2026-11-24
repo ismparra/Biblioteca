@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/viewUsers.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">Biblioteca</div>
+
+        <nav class="menu">
+            <a href="/">Inicio</a>
+            <a href="/admin/panel">Panel</a>
+            <a href="/admin/panel/alumnos">Alumnos</a>
+            <a href="#">Auditorias</a>
+    </nav>
+    </aside>
+
+    <section class="panel">
+    <h2>Usuarios registrados</h2>
+
+    <div class="tabla-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre completo</th>
+                    <th>Usuario</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for u in usuarios %}
+                <tr>
+                    <td>{{ u.id_bibliotecario }}</td>
+                    <td>{{ u.nombre_completo }}</td>
+                    <td>{{ u.usuario }}</td>
+                    <td>{{ u.rol }}</td>
+                    <td>{{ u.estado}}</td>
+
+                    <td class="acciones">
+
+                        {% if user.rol == "administrador" and user.estado == "activo" %}
+                        {%if u.estado == "inactivo"%}
+                        <!-- Alta -->
+                        <form method="POST" action="/admin/panel/usuarios/alta">
+                            <input
+                                type="hidden"
+                                name="id_usuario"
+                                value="{{ u.id_bibliotecario }}"
+                            >
+                            <button type="submit" class="success">
+                                Dar de alta
+                            </button>
+                        </form>
+                        {% endif %}
+                        {%if u.estado == "activo"%}
+                        <!-- Baja -->
+                        <form method="POST" action="/admin/panel/usuarios/baja">
+                            <input
+                                type="hidden"
+                                name="id_usuario"
+                                value="{{ u.id_bibliotecario }}"
+                            >
+                            <button type="submit" class="danger">
+                                Dar de baja
+                            </button>
+                        </form>
+                        {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

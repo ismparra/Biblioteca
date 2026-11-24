@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar prestamo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/registrar.css') }}">
+</head>
+<body>
+    <div class="panel">
+
+        <div class="panel-header">
+            <h1>Registrar Préstamo</h1>
+            <p>Escanea libros y confirma el préstamo.</p>
+        </div>
+
+        <!-- Alumno -->
+        <section class="card">
+            <h2>Alumno</h2>
+
+            <div class="field">
+                <label>Matrícula</label>
+                <input
+                    type="text"
+                    id="alumno"
+                    placeholder="Escanea o escribe la matrícula">
+            </div>
+
+            <div class="alumno-info">
+                <strong>Nombre:</strong>
+                <span id="nombre-alumno">
+                    Ningún alumno seleccionado
+                </span>
+            </div>
+        </section>
+
+        <!-- Escaneo -->
+        <section class="card">
+            <h2>Escanear Libro</h2>
+
+            <div class="scan-row">
+                <input
+                    type="text"
+                    id="codigo"
+                    placeholder="Escanea código de barras">
+            </div>
+        </section>
+
+        <!-- Libros -->
+        <section class="card">
+            <div class="table-head">
+                <h2>Libros del préstamo</h2>
+                <span id="total-libros">0 libros</span>
+            </div>
+
+            <div class="prestamo-lista" id="prestamo-lista">
+
+
+            </div>
+        </section>
+
+        <!-- Resumen -->
+        <section class="card resumen">
+
+            <div>
+                <strong>Total de libros:</strong>
+                <span id="cantidad">0</span>
+            </div>
+
+            <button
+                class="registrar-btn"
+                type="submit">
+                Registrar Préstamo
+            </button>
+
+        </section>
+
+    </div>
+    
+</body>
+</html>
