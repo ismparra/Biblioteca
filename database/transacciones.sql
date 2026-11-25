@@ -1,1 +1,1 @@
--- Pendiente
+-- las transacciones estan en procedimientos.sql
