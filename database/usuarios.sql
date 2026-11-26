@@ -41,7 +41,7 @@ create user 'bib_consulta'@'localhost' identified by 'Consulta123!';
 -- este usuario es solo para el login de la app
 -- esta pensado para cuando aun no ha hecho login ningun usuario y se quiere verificar que el usuario y contraseña son correctos cuando se hace login en la app
 create user 'bib_login'@'localhost' identified by 'Login123!';
-grant select on biblioteca.bibliotecarios to 'bib_login'@'localhost';
+grant execute on procedure biblioteca.iniciar_sesion to 'bib_login'@'localhost';
 
 -- Asignar los roles
 grant 'rol_administrador' to 'bib_admin'@'localhost';

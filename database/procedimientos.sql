@@ -111,3 +111,14 @@ else
 end if;
 end $$
 delimiter ;
+
+
+-- Procedimiento 5: iniciar sesion
+delimiter $$
+create procedure iniciar_sesion(in p_usuario varchar(50), in p_password varchar(100))
+begin
+-- se hashea lo que escribio y se compara con lo guardado, si no coincide no regresa nada
+-- se esta usando una sal para que dos usuarios con la misma contraseña no tengan el mismo hash, y se evita que alguien pueda usar un diccionario de hashes para adivinar la contraseña
+select id_bibliotecario, nombre_completo, usuario, rol, estado from bibliotecarios where usuario = p_usuario and password_hash = sha2(concat(usuario, p_password), 256);
+end $$
+delimiter ;

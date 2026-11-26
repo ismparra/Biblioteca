@@ -1,11 +1,12 @@
 -- datos de prueba, correr solo una vez con la base vacia
 use biblioteca;
--- las contraseñas van sin hash porque la app aun no lo usa
+-- las contraseñas se guardan con sha2, se le pega el usuario para que dos contraseñas iguales no den el mismo hash
+-- es decir, se esta usando una sal para que dos usuarios con la misma contraseña no tengan el mismo hash, y se evita que alguien pueda usar un diccionario de hashes para adivinar la contraseña
 insert into bibliotecarios values
-(1,'Laura Gomez','admin','admin123','administrador','activo'),
-(2,'Carlos Ruiz','operador','operador123','operador','activo'),
-(3,'Maria Lopez','consulta','consulta123','consulta','activo'),
-(4,'Pedro Sanchez','inactivo','inactivo123','operador','inactivo');
+(1,'Laura Gomez','admin',sha2('adminadmin123',256),'administrador','activo'),
+(2,'Carlos Ruiz','operador',sha2('operadoroperador123',256),'operador','activo'),
+(3,'Maria Lopez','consulta',sha2('consultaconsulta123',256),'consulta','activo'),
+(4,'Pedro Sanchez','inactivo',sha2('inactivoinactivo123',256),'operador','inactivo');
 
 insert into alumnos values
 (1,'Ana Torres','A001','activo'),
@@ -63,6 +64,14 @@ select * from ejemplares;
 -- este libro no tiene prestamos asi que se puede borrar
 call eliminar_libro(5);
 select * from libros;
+
+
+-- login correcto
+call iniciar_sesion('admin','admin123');
+-- contraseña incorrecta, no regresa nada
+call iniciar_sesion('admin','1234');
+-- usuario que no existe, no regresa nada
+call iniciar_sesion('IPC','admin123');
 
 
 -- ver lo que guardaron los triggers de auditoria

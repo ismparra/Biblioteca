@@ -1,1 +1,0 @@
-Agregar los hash
