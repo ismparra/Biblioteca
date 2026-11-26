@@ -122,3 +122,13 @@ begin
 select id_bibliotecario, nombre_completo, usuario, rol, estado from bibliotecarios where usuario = p_usuario and password_hash = sha2(concat(usuario, p_password), 256);
 end $$
 delimiter ;
+
+
+-- Procedimiento 6: registrar un usuario
+delimiter $$
+create procedure registrar_usuario(in p_nombre varchar(100), in p_usuario varchar(50), in p_password varchar(100), in p_rol varchar(20))
+begin
+-- la contraseña se hashea igual que en iniciar_sesion
+insert into bibliotecarios values(default, p_nombre, p_usuario, sha2(concat(p_usuario, p_password), 256), p_rol, 'activo');
+end $$
+delimiter ;

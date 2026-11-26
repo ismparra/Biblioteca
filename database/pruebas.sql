@@ -74,6 +74,11 @@ call iniciar_sesion('admin','1234');
 call iniciar_sesion('IPC','admin123');
 
 
+-- registrar un usuario y entrar con el
+call registrar_usuario('Rosa Diaz','rosa','rosa123','operador');
+call iniciar_sesion('rosa','rosa123');
+
+
 -- ver lo que guardaron los triggers de auditoria
 select * from auditoria;
 
@@ -101,6 +106,9 @@ call registrar_devolucion('0000000000000');
 call eliminar_libro(1);
 -- borrar un libro que no existe
 call eliminar_libro(100000000);
+
+-- usuario repetido
+call registrar_usuario('Otro Admin','admin','1234','administrador');
 
 -- trigger: alumno suspendido
 insert into prestamos(id_alumno, id_ejemplar, id_bibliotecario, fecha_limite) values(4,2,2,curdate());

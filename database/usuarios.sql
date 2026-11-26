@@ -14,6 +14,7 @@ grant select on biblioteca.auditoria to 'rol_administrador';
 grant execute on procedure biblioteca.registrar_prestamo to 'rol_administrador';
 grant execute on procedure biblioteca.registrar_devolucion to 'rol_administrador';
 grant execute on procedure biblioteca.eliminar_libro to 'rol_administrador';
+grant execute on procedure biblioteca.registrar_usuario to 'rol_administrador';
 grant execute on procedure biblioteca.consultar_alumno to 'rol_administrador';
 grant execute on function biblioteca.ejemplares_disponibles to 'rol_administrador';
 grant execute on function biblioteca.dias_retraso to 'rol_administrador';
