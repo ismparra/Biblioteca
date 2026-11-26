@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/viewUsers.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">Biblioteca</div>
+
+        <nav class="menu">
+            <a href="/">Inicio</a>
+            <a href="/admin/panel">Panel</a>
+            <a href="/admin/panel/usuarios">Usuarios</a>
+            <a href="/admin/panel/alumnos">Alumnos</a>
+             <a href="/admin/panel/prestamos">Prestamos</a>
+    </nav>
+    </aside>
+
+    <section class="panel">
+    <h2>Libros mas solicitados</h2>
+
+    <div class="tabla-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Titulo</th>
+                    <th>Autor</th>
+                    <th>Veces prestado</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for l in libros %}
+                <tr>
+                    <td>{{ l.titulo }}</td>
+                    <td>{{ l.autor }}</td>
+                    <td>{{ l.veces_prestado }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </section>
+
+    <section class="panel">
+    <h2>Alumnos con prestamos vencidos</h2>
+
+    <div class="tabla-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Matricula</th>
+                    <th>Nombre completo</th>
+                    <th>Prestammos vencidos</th>
+                    <th>Dias atraso</th>
+                    <th>Libros</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for a in alumnos %}
+                <tr>
+                    <td>{{ a.matricula }}</td>
+                    <td>{{ a.nombre_completo }}</td>
+                    <td>{{ a.prestamos_vencidos}}</td>
+                    <th>{{ a.dias_atraso}}</th>
+                    {{ a.libros}}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </section>
+</body>
+</html>
