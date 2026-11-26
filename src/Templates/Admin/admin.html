@@ -16,7 +16,10 @@
         <a href="/">Inicio</a>
         <a href="/admin/panel/usuarios">Usuarios</a>
         <a href="/admin/panel/alumnos">Alumnos</a>
+        <a href="/admin/panel/prestamos">Prestamos</a>
+        {% if user.rol == "administrador" %}
         <a href="/admin/panel/auditorias">Auditorias</a>
+        {% endif %}
     </nav>
 </aside>
 
@@ -39,9 +42,9 @@
             <p>Administradores y bibliotecarios.</p>
         </a>
 
-        <a class="card">
+        <a class="card" href="/admin/panel/alumnos">
             <h3>Ver Alumnos</h3>
-            <p>Altas, bajas y modificaciones.</p>
+            <p>Pensadores del mañana.</p>
         </a>
 
     </section>

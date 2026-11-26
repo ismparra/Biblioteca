@@ -1,10 +1,10 @@
 import mysql.connector
 
-def get_connection():
+def get_connection(usuario = "bib_admin", password = "Admin123!"):
     return mysql.connector.connect(
         host="localhost",
-        user="root",
-        password="root",
+        user= usuario,
+        password= password,
         database="biblioteca"
     )
 

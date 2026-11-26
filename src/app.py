@@ -7,7 +7,9 @@ from BD.users import *
 from BD.ejemplares import *
 from BD.alumnos import *
 from BD.auditorias import *
+from BD.prestamos import *
 from Extra.colors import PALETTE
+from datetime import date, timedelta
 
 app = Flask(__name__)
 app.secret_key = "Los que poseen la cumbia"
@@ -175,6 +177,26 @@ def registrar_prestamo():
         return redirect("/")
     return render_template("Admin/registrarPrestamo.html")
 
+@app.route("/prestamo/registrar", methods=['POST'])
+def registrar():
+    data = request.get_json()
+    alumno = data["alumno"]
+    libros = data["libros"]
+    fecha_limite = date.today() + timedelta(days=8)
+
+    try: 
+        for codigo in libros:
+            ejecutar(
+                "CALL registrar_prestamo(%s, %s, %s, %s)",
+                (alumno, codigo, session['id'], fecha_limite)
+            )
+        return jsonify({ "ok": True })
+    except Exception as e:
+        return jsonify({
+            "ok": False,
+            "error": str(e)
+        }), 500
+
 @app.route("/api/libro/codigo", methods=["POST"])
 def buscar_libro_codigo():
     codigo = request.json["codigo"]
@@ -239,6 +261,19 @@ def ver_auditorias():
     return render_template("Admin/mostrarAuditorias.html", 
                            auditorias=auditorias, user=session)
 
+#----------------- Panel prestamos ---------------
+@app.route("/admin/panel/prestamos")
+def ver_prestamos():
+    if not session or session['rol'] not in roles:
+        return redirect("/")
+    prestamos = obtenerPrestamos()
+    return render_template("Admin/mostrarPrestamos.html", prestamos = prestamos)
+
+@app.route("/admin/panel/prestamos/devolver", methods = ['POST'])
+def devolver_prestamo():
+    codigo = request.form['codigo_barras']
+    registrar_1_devolucion(codigo)
+    return redirect("/admin/panel/prestamos")
 
 if __name__ == '__main__':
     app.run(debug = True)

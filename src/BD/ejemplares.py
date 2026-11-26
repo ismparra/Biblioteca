@@ -5,7 +5,7 @@ def registrar_1_ejemplar(codigo, id):
         """
         INSERT INTO EJEMPLARES
         VALUES
-        (NULL, %s, %s, NULL);
+        (NULL, %s, %s, 'disponible');
         """,
-        codigo, id
+        (codigo, id)
     )

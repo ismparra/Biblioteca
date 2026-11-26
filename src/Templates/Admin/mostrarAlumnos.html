@@ -15,7 +15,10 @@
             <a href="/">Inicio</a>
             <a href="/admin/panel">Panel</a>
             <a href="/admin/panel/usuarios">Usuarios</a>
-            <a href="#">Auditorias</a>
+             <a href="/admin/panel/prestamos">Prestamos</a>
+            {% if user.rol == "administrador" %}
+            <a href="/admin/panel/auditorias">Auditorias</a>
+            {% endif %}
     </nav>
     </aside>
 

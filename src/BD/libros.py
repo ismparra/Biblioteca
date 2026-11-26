@@ -27,7 +27,8 @@ def buscar_libros(q):
 
 def buscar_libro(id):
     return consultar(
-        "SELECT * FROM LIBROS WHERE id_libro = %s",
+        "SELECT id_libro, titulo, autor, categoria, ejemplares_disponibles(id_libro) as ejemplares" \
+        " FROM LIBROS WHERE id_libro = %s",
         (id,))[0]
 
 def buscar_libro_cod(codigo):
@@ -39,7 +40,7 @@ def buscar_libro_cod(codigo):
 
 def eliminar_1_libro(id):
     return ejecutar(
-        "DELETE FROM LIBROS WHERE id_libro = %s",
+        "CALL eliminar_libro(%s)",
         (id,)
     )
 

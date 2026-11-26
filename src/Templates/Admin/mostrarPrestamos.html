@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/viewUsers.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">Biblioteca</div>
+
+        <nav class="menu">
+            <a href="/">Inicio</a>
+            <a href="/admin/panel">Panel</a>
+            <a href="/admin/panel/usuarios">Usuarios</a>
+            <a href="/admin/panel/alumnos">Alumnos</a>
+    </nav>
+    </aside>
+
+    <section class="panel">
+    <h2>Auditorias</h2>
+
+    <div class="tabla-container">
+        <table class="tabla">
+            <thead>
+                <tr>
+                    <th>Id prestamo</th>
+                    <th>Alumno</th>
+                    <th>Ejemplar</th>
+                    <th>Bibliotecario</th>
+                    <th>Fecha prestamo</th>
+                    <th>Fecha limite</th>
+                    <th>Fecha devolucion</th>
+                    <th>Atraso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for p in prestamos %}
+                <tr>
+                    <td>{{ p.id_prestamo }}</td>
+                    <td>{{ p.alumno }}</td>
+                    <td>{{ p.titulo }}</td>
+                    <td>{{ p.bibliotecario }}</td>
+                    <td>{{ p.fecha_prestamo }}</td>
+                    <td>{{ p.fecha_limite }}</td>
+                    <td>{{ p.fecha_devolucion }}</td>
+                    <td>{{ p.atraso }}</td>
+                    <td>
+                        {% if not p.fecha_devolucion %}
+                        <form method="POST" action="/admin/panel/prestamos/devolver">
+                            <input
+                                type="hidden"
+                                name="codigo_barras"
+                                value="{{ p.codigo_barras }}"
+                            >
+                            <button type="submit" class="danger">
+                                Registrar devolución
+                            </button>
+                        </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

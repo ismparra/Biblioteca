@@ -18,6 +18,7 @@ grant execute on procedure biblioteca.registrar_usuario to 'rol_administrador';
 grant execute on procedure biblioteca.consultar_alumno to 'rol_administrador';
 grant execute on function biblioteca.ejemplares_disponibles to 'rol_administrador';
 grant execute on function biblioteca.dias_retraso to 'rol_administrador';
+GRANT EXECUTE ON PROCEDURE biblioteca.iniciar_sesion TO 'rol_administrador';
 
 -- el operador hace prestamos y devoluciones (solo con los procedimientos)
 grant select on biblioteca.alumnos to 'rol_operador';

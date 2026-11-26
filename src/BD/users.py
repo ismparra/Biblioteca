@@ -2,8 +2,7 @@ from BD.connection import consultar, ejecutar
 def login(usuario, passw):
     return consultar(
         """
-        SELECT * FROM BIBLIOTECARIOS
-        WHERE USUARIO = %s AND PASSWORD_HASH = %s;
+        call iniciar_sesion(%s,%s);
         """,
         (usuario, passw)
     )
@@ -20,9 +19,7 @@ def buscar_user_by_username(user):
 def insertar_1_user(name, user, _pass, rol):
     return ejecutar(
         """
-        INSERT INTO BIBLIOTECARIOS
-        VALUES 
-        (NULL, %s, %s, %s, %s, 'activo')
+        call registrar_usuario(%s, %s, %s, %s)
         """,
         (name, user, _pass, rol)
     )

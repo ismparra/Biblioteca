@@ -40,16 +40,16 @@ function agregarLibro(libro){
 
 function render(){
 
-    const cont = document.getElementById("lista");
-
+    const cont = document.getElementById("prestamo-lista");
     cont.innerHTML = "";
+    document.getElementById("cantidad").textContent = prestamo.length;
 
     prestamo.forEach(libro => {
 
         const row = document.createElement("div");
 
         row.innerHTML = `
-            <b>${libro.titulo}</b>
+            <h3>${libro.titulo}</h3>
             <span>${libro.autor}</span>
         `;
 
@@ -57,18 +57,29 @@ function render(){
     });
 }
 
-async function registrarPrestamo(idAlumno){
+async function registrarPrestamo(){
 
-    const libros = prestamo.map(x => x.id_libro);
+    const alumno = document.getElementById("alumno").value.trim();
 
-    await fetch("/prestamo/registrar", {
+    const libros = prestamo.map(x => x.codigo_barras);
+
+
+    const res = await fetch("/prestamo/registrar", {
         method: "POST",
         headers:{
             "Content-Type":"application/json"
         },
         body: JSON.stringify({
-            alumno: idAlumno,
+            alumno: alumno,
             libros: libros
         })
     });
+
+    const data = await res.json();
+
+    if(data.ok){
+    window.location.href = "/admin/panel/prestamos";
+    }else{
+        alert(data.error);
+    }
 }

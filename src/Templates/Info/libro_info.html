@@ -55,6 +55,11 @@
                 <div class="value">{{ libro.categoria }}</div>
             </div>
 
+            <div class="row">
+                <div class="label">Ejemplares disponibles</div>
+                <div class="value">{{ libro.ejemplares }}</div>
+            </div>
+
             {%if user and user.rol == "administrador" and user.estado == "activo" %}
             <div class="actions">
 
