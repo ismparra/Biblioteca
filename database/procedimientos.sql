@@ -132,3 +132,76 @@ begin
 insert into bibliotecarios values(default, p_nombre, p_usuario, sha2(concat(p_usuario, p_password), 256), p_rol, 'activo');
 end $$
 delimiter ;
+
+
+-- Procedimiento 7: actualizar un usuario
+delimiter $$
+create procedure actualizar_usuario(in p_id int, in p_nombre varchar(100), in p_usuario varchar(50), in p_password varchar(100), in p_rol varchar(20))
+begin
+	declare v_usuario varchar(50);
+	set v_usuario = (select usuario from bibliotecarios where id_bibliotecario = p_id);
+	if v_usuario is null then
+		signal sqlstate '45000' set message_text = 'El usuario no existe';
+	end if;
+	-- el hash usa el nombre de usuario como sal, si cambia hay que capturar la contraseña otra vez
+	if binary v_usuario != binary p_usuario and ifnull(p_password, '') = '' then
+		signal sqlstate '45000' set message_text = 'Si cambias el nombre de usuario debes escribir una contraseña';
+	end if;
+	-- si la contraseña viene vacia se conserva la anterior
+	update bibliotecarios set nombre_completo = p_nombre, usuario = p_usuario, rol = p_rol,
+		password_hash = if(ifnull(p_password, '') = '', password_hash, sha2(concat(p_usuario, p_password), 256))
+	where id_bibliotecario = p_id;
+end $$
+delimiter ;
+
+
+-- Procedimiento 8: eliminar un usuario
+delimiter $$
+create procedure eliminar_usuario(in p_id int)
+begin
+	declare v_id int;
+	declare exit handler for sqlexception
+	begin
+		rollback;
+		resignal;
+	end;
+
+start transaction;
+select id_bibliotecario into v_id from bibliotecarios where id_bibliotecario = p_id for update;
+if v_id is null then
+	signal sqlstate '45000' set message_text = 'El usuario no existe';
+end if;
+-- si ya registro prestamos no se borra para no perder el historial
+if exists (select 1 from prestamos where id_bibliotecario = p_id) then
+	signal sqlstate '45000' set message_text = 'No se puede eliminar: el usuario tiene prestamos registrados';
+end if;
+delete from bibliotecarios where id_bibliotecario = p_id;
+commit;
+end $$
+delimiter ;
+
+
+-- Procedimiento 9: eliminar un alumno
+delimiter $$
+create procedure eliminar_alumno(in p_id int)
+begin
+	declare v_id int;
+	declare exit handler for sqlexception
+	begin
+		rollback;
+		resignal;
+	end;
+
+start transaction;
+select id_alumno into v_id from alumnos where id_alumno = p_id for update;
+if v_id is null then
+	signal sqlstate '45000' set message_text = 'El alumno no existe';
+end if;
+-- si ya tiene prestamos no se borra para no perder el historial
+if exists (select 1 from prestamos where id_alumno = p_id) then
+	signal sqlstate '45000' set message_text = 'No se puede eliminar: el alumno tiene prestamos registrados';
+end if;
+delete from alumnos where id_alumno = p_id;
+commit;
+end $$
+delimiter ;

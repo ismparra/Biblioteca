@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <title>Editar Alumno</title>
+</head>
+<body>
+    <form action="/admin/panel/alumnos/actualizar" method="POST" class="book-form">
+
+        <h2>Editar Alumno</h2>
+        <p>Edita los datos de un alumno.</p>
+
+        <div class="input-group">
+            <label for="name">Nombre completo</label>
+            <input type="text" id="name" name="name" maxlength="100"
+                value="{{ alumno.nombre_completo }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="mat">Matrícula</label>
+            <input type="text" id="mat" name="mat" maxlength="30"
+                value="{{ alumno.matricula }}" required>
+        </div>
+
+        <button type="submit" name="id_alumno" value="{{ alumno.id_alumno }}">
+            Actualizar Alumno
+        </button>
+
+    </form>
+</body>
+</html>

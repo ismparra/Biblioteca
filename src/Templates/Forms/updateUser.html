@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+    <title>Editar Usuario</title>
+</head>
+<body>
+    <form action="/admin/panel/usuarios/actualizar" method="POST" class="book-form">
+
+        <h2>Editar Usuario</h2>
+        <p>Deja la contraseña vacía para conservarla. Si cambias el usuario, escribe una.</p>
+
+        <div class="input-group">
+            <label for="name">Nombre completo</label>
+            <input type="text" id="name" name="name" maxlength="100"
+                value="{{ usuario.nombre_completo }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="user">Usuario</label>
+            <input type="text" id="user" name="user" maxlength="50"
+                value="{{ usuario.usuario }}" required>
+        </div>
+
+        <div class="input-group">
+            <label for="pass">Nueva contraseña</label>
+            <input type="password" id="pass" name="pass" maxlength="100" autocomplete="new-password">
+        </div>
+
+        <div class="input-group">
+            <label for="rol">Rol</label>
+            <select id="rol" name="rol" {% if propio %}disabled{% else %}required{% endif %}>
+                {% for r in ["administrador", "operador", "consulta"] %}
+                <option value="{{ r }}" {% if usuario.rol == r %}selected{% endif %}>
+                    {{ r|capitalize }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" name="id_usuario" value="{{ usuario.id_bibliotecario }}">
+            Actualizar Usuario
+        </button>
+
+    </form>
+</body>
+</html>

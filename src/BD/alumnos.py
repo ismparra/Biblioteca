@@ -10,6 +10,34 @@ def insert_1_alumno(name, mat):
         (name, mat)
     )
 
+def buscar_alumno(id):
+    filas = consultar(
+        """
+        SELECT * FROM ALUMNOS
+        WHERE id_alumno = %s
+        """,
+        (id,)
+    )
+    return filas[0] if filas else None
+
+def actualizar_1_alumno(id, name, mat):
+    return ejecutar(
+        """
+        UPDATE ALUMNOS
+        SET nombre_completo = %s, matricula = %s
+        WHERE id_alumno = %s;
+        """,
+        (name, mat, id)
+    )
+
+def eliminar_1_alumno(id):
+    return ejecutar(
+        """
+        call eliminar_alumno(%s)
+        """,
+        (id,)
+    )
+
 def obtener_alumnos():
     return consultar(
         """

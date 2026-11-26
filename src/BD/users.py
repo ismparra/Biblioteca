@@ -24,6 +24,33 @@ def insertar_1_user(name, user, _pass, rol):
         (name, user, _pass, rol)
     )
 
+def buscar_user(id):
+    filas = consultar(
+        """
+        SELECT id_bibliotecario, nombre_completo, usuario, rol
+        FROM BIBLIOTECARIOS
+        WHERE id_bibliotecario = %s
+        """,
+        (id,)
+    )
+    return filas[0] if filas else None
+
+def actualizar_1_user(id, name, user, _pass, rol):
+    return ejecutar(
+        """
+        call actualizar_usuario(%s, %s, %s, %s, %s)
+        """,
+        (id, name, user, _pass, rol)
+    )
+
+def eliminar_1_user(id):
+    return ejecutar(
+        """
+        call eliminar_usuario(%s)
+        """,
+        (id,)
+    )
+
 def obtener_usuarios():
     return consultar(
         """

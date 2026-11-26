@@ -49,6 +49,17 @@
                     <td class="acciones">
 
                         {% if user.rol == "administrador" and user.estado == "activo" %}
+                        <!-- Editar -->
+                        <form method="POST" action="/admin/panel/alumnos/editar">
+                            <input type="hidden" name="id_alumno" value="{{ a.id_alumno }}">
+                            <button type="submit">Editar</button>
+                        </form>
+                        <!-- Eliminar -->
+                        <form method="POST" action="/admin/panel/alumnos/eliminar"
+                              onsubmit="return confirm('¿Eliminar este alumno? Esta accion no se puede deshacer.')">
+                            <input type="hidden" name="id_alumno" value="{{ a.id_alumno }}">
+                            <button type="submit" class="danger">Eliminar</button>
+                        </form>
                         {%if a.estado == "suspendido"%}
                         <!-- Alta -->
                         <form method="POST" action="/admin/panel/alumnos/alta">

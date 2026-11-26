@@ -51,6 +51,19 @@
                     <td class="acciones">
 
                         {% if user.rol == "administrador" and user.estado == "activo" %}
+                        <!-- Editar -->
+                        <form method="POST" action="/admin/panel/usuarios/editar">
+                            <input type="hidden" name="id_usuario" value="{{ u.id_bibliotecario }}">
+                            <button type="submit">Editar</button>
+                        </form>
+                        {% if u.id_bibliotecario != user.id %}
+                        <!-- Eliminar -->
+                        <form method="POST" action="/admin/panel/usuarios/eliminar"
+                              onsubmit="return confirm('¿Eliminar este usuario? Esta accion no se puede deshacer.')">
+                            <input type="hidden" name="id_usuario" value="{{ u.id_bibliotecario }}">
+                            <button type="submit" class="danger">Eliminar</button>
+                        </form>
+                        {% endif %}
                         {%if u.estado == "inactivo"%}
                         <!-- Alta -->
                         <form method="POST" action="/admin/panel/usuarios/alta">

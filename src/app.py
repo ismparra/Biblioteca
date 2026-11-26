@@ -10,11 +10,15 @@ from BD.auditorias import *
 from BD.prestamos import *
 from Extra.colors import PALETTE
 from datetime import date, timedelta
+from mysql.connector import Error
 
 app = Flask(__name__)
 app.secret_key = "Los que poseen la cumbia"
 
 roles = ("administrador", "operador")
+
+def es_admin():
+    return session.get('rol') == "administrador" and session.get('estado') == "activo"
 
 @app.route("/")
 def index(msg = None):
@@ -227,6 +231,48 @@ def dar_alta_usuarios():
         return index("Operación fallida")
     return redirect("/admin/panel/usuarios")
 
+@app.route("/admin/panel/usuarios/editar", methods=['POST'])
+def editar_usuario():
+    if not es_admin():
+        return redirect("/")
+    usuario = buscar_user(request.form['id_usuario'])
+    if not usuario:
+        return index("Operación fallida")
+    propio = usuario['id_bibliotecario'] == session['id']
+    return render_template("Forms/updateUser.html", usuario=usuario, propio=propio)
+
+@app.route("/admin/panel/usuarios/actualizar", methods=['POST'])
+def actualizar_usuario():
+    if not es_admin():
+        return redirect("/")
+    id = int(request.form['id_usuario'])
+    name = request.form['name']
+    user = request.form['user']
+    _pass = request.form['pass']
+    propio = id == session['id']
+    rol = session['rol'] if propio else request.form['rol']
+    try:
+        actualizar_1_user(id, name, user, _pass, rol)
+    except Error as e:
+        return index(e.msg)
+    if propio:
+        session['nombre'] = name
+        session['user'] = user
+    return redirect("/admin/panel/usuarios")
+
+@app.route("/admin/panel/usuarios/eliminar", methods=['POST'])
+def eliminar_usuario():
+    if not es_admin():
+        return redirect("/")
+    id = int(request.form['id_usuario'])
+    if id == session['id']:
+        return index("No puedes eliminar tu propio usuario")
+    try:
+        eliminar_1_user(id)
+    except Error as e:
+        return index(e.msg)
+    return redirect("/admin/panel/usuarios")
+
 #-------------------- Alumnos -------------
 
 @app.route("/admin/panel/alumnos")
@@ -250,6 +296,38 @@ def dar_alta_alumno():
     filas = dar_alta_1_alumno(id)
     if filas == 0:
         return index("Operación fallida")
+    return redirect("/admin/panel/alumnos")
+
+@app.route("/admin/panel/alumnos/editar", methods=['POST'])
+def editar_alumno():
+    if not es_admin():
+        return redirect("/")
+    alumno = buscar_alumno(request.form['id_alumno'])
+    if not alumno:
+        return index("Operación fallida")
+    return render_template("Forms/updateAlumno.html", alumno=alumno)
+
+@app.route("/admin/panel/alumnos/actualizar", methods=['POST'])
+def actualizar_alumno():
+    if not es_admin():
+        return redirect("/")
+    id = request.form['id_alumno']
+    name = request.form['name']
+    mat = request.form['mat']
+    try:
+        actualizar_1_alumno(id, name, mat)
+    except Error as e:
+        return index(e.msg)
+    return redirect("/admin/panel/alumnos")
+
+@app.route("/admin/panel/alumnos/eliminar", methods=['POST'])
+def eliminar_alumno():
+    if not es_admin():
+        return redirect("/")
+    try:
+        eliminar_1_alumno(request.form['id_alumno'])
+    except Error as e:
+        return index(e.msg)
     return redirect("/admin/panel/alumnos")
 
 #-------------------- Auditorias ----------------
