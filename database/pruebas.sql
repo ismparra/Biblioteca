@@ -38,6 +38,24 @@ insert into prestamos values(2,2,3,2, now() - interval 20 day, curdate() - inter
 insert into prestamos values(3,1,4,2, now() - interval 10 day, curdate() - interval 3 day, null);
 update ejemplares set estado = 'prestado' where id_ejemplar = 4;
 
+-- mas prestamos ya devueltos para que salga algo en los reportes
+insert into prestamos values
+(4,1,2,2, now() - interval 60 day, curdate() - interval 53 day, now() - interval 55 day),
+(5,2,2,2, now() - interval 45 day, curdate() - interval 38 day, now() - interval 36 day),
+(6,3,1,2, now() - interval 50 day, curdate() - interval 43 day, now() - interval 44 day),
+(7,3,3,1, now() - interval 40 day, curdate() - interval 33 day, now() - interval 34 day),
+(8,1,5,2, now() - interval 55 day, curdate() - interval 48 day, now() - interval 50 day),
+(9,2,5,2, now() - interval 35 day, curdate() - interval 28 day, now() - interval 27 day),
+(10,3,6,1, now() - interval 42 day, curdate() - interval 35 day, now() - interval 37 day),
+(11,1,6,2, now() - interval 28 day, curdate() - interval 21 day, now() - interval 18 day),
+(12,3,1,2, now() - interval 20 day, curdate() - interval 13 day, now() - interval 14 day);
+-- mas prestamos vencidos
+insert into prestamos values
+(13,2,5,2, now() - interval 15 day, curdate() - interval 8 day, null),
+(14,3,6,2, now() - interval 14 day, curdate() - interval 7 day, null),
+(15,2,3,1, now() - interval 9 day, curdate() - interval 2 day, null);
+update ejemplares set estado = 'prestado' where id_ejemplar in (3,5,6);
+
 
 -- pruebas de las funciones
 select id_libro, titulo, autor, ejemplares_disponibles(id_libro) as disponibles from libros;
