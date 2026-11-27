@@ -52,9 +52,3 @@
 - [ ]  6. Script de usuarios, roles y permisos
 - [ ]  7. Código fuente completo en GitHub (con aportes de cada alumno)
 - [ ]  8. Evidencias del lector de código de barras
-
-## Notas de reuniones
-
-*(agrega aquí fechas y acuerdos)*
-
-[Tareas del proyecto](https://app.notion.com/p/41b051f92f678119a9c2e8eaa1ac77e8?pvs=21)
