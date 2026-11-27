@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
 </head>
 <body>
+{% include "_mensajes.html" %}
     <aside class="sidebar">
         <div class="logo">Biblioteca</div>
 
@@ -16,9 +17,7 @@
             <a href="/admin/panel">Panel</a>
             <a href="/admin/panel/usuarios">Usuarios</a>
             <a href="/admin/panel/alumnos">Alumnos</a>
-            {% if user.rol == "administrador" %}
             <a href="/admin/panel/reportes">Reportes</a>
-            {% endif %}
     </nav>
     </aside>
 

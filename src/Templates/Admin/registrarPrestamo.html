@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/registrar.css') }}">
 </head>
 <body>
+{% include "_mensajes.html" %}
     <div class="panel">
 
         <div class="panel-header">
@@ -24,6 +25,7 @@
                     type="text"
                     id="alumno"
                     placeholder="Escanea o escribe la matrícula">
+                <p id="alumno-info" aria-live="polite"></p>
             </div>
         </section>
 

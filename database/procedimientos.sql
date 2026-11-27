@@ -1,11 +1,14 @@
 -- Transaccion 1: registrar prestamo
 use biblioteca;
 delimiter $$
-create procedure registrar_prestamo(in p_matricula varchar(30), in p_codigo varchar(50), in p_bibliotecario int, in p_fecha_limite date)
+-- p_codigos es un codigo de barras o varios separados por comas, se prestan todos o ninguno
+create procedure registrar_prestamo(in p_matricula varchar(30), in p_codigos text, in p_bibliotecario int, in p_fecha_limite date)
 begin
 	declare v_alumno int;
 	declare v_ejemplar int;
 	declare v_estado varchar(20);
+	declare v_codigo varchar(50);
+	declare v_resto text default p_codigos;
 	-- si algo truena se hace rollback y el error le llega a la app
 	declare exit handler for sqlexception
 	begin
@@ -15,16 +18,8 @@ begin
 
 start transaction;
 select id_alumno into v_alumno from alumnos where matricula = p_matricula and estado = 'activo' for update;
--- el for update es para que no se preste el mismo ejemplar dos veces
-select id_ejemplar, estado into v_ejemplar, v_estado from ejemplares where codigo_barras = p_codigo for update;
 if v_alumno is null then
 	signal sqlstate '45000' set message_text = 'El alumno no existe o esta suspendido';
-end if;
-if v_ejemplar is null then
-	signal sqlstate '45000' set message_text = 'No existe un ejemplar con ese codigo de barras';
-end if;
-if v_estado != 'disponible' then
-	signal sqlstate '45000' set message_text = 'El ejemplar ya esta prestado';
 end if;
 if not exists (select 1 from bibliotecarios where id_bibliotecario = p_bibliotecario and estado = 'activo' and rol in ('administrador','operador')) then
 	signal sqlstate '45000' set message_text = 'El usuario no tiene permiso para registrar prestamos';
@@ -32,8 +27,24 @@ end if;
 if p_fecha_limite is null or p_fecha_limite < curdate() then
 	signal sqlstate '45000' set message_text = 'La fecha limite no es valida';
 end if;
-insert into prestamos(id_alumno, id_ejemplar, id_bibliotecario, fecha_limite) values(v_alumno, v_ejemplar, p_bibliotecario, p_fecha_limite);
-update ejemplares set estado = 'prestado' where id_ejemplar = v_ejemplar;
+-- una vuelta por cada codigo, si uno falla se hace rollback de todos
+repeat
+	set v_codigo = trim(substring_index(v_resto, ',', 1));
+	set v_resto = if(locate(',', v_resto) > 0, substring(v_resto, locate(',', v_resto) + 1), null);
+	-- se limpian para no arrastrar el ejemplar de la vuelta anterior
+	set v_ejemplar = null;
+	set v_estado = null;
+	-- el for update es para que no se preste el mismo ejemplar dos veces
+	select id_ejemplar, estado into v_ejemplar, v_estado from ejemplares where codigo_barras = v_codigo for update;
+	if v_ejemplar is null then
+		signal sqlstate '45000' set message_text = 'No existe un ejemplar con ese codigo de barras';
+	end if;
+	if v_estado != 'disponible' then
+		signal sqlstate '45000' set message_text = 'El ejemplar ya esta prestado';
+	end if;
+	insert into prestamos(id_alumno, id_ejemplar, id_bibliotecario, fecha_limite) values(v_alumno, v_ejemplar, p_bibliotecario, p_fecha_limite);
+	update ejemplares set estado = 'prestado' where id_ejemplar = v_ejemplar;
+until v_resto is null end repeat;
 commit;
 end $$
 delimiter ;

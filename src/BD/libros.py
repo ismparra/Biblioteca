@@ -26,17 +26,19 @@ def buscar_libros(q):
             ]
 
 def buscar_libro(id):
-    return consultar(
+    filas = consultar(
         "SELECT id_libro, titulo, autor, categoria, ejemplares_disponibles(id_libro) as ejemplares" \
         " FROM LIBROS WHERE id_libro = %s",
-        (id,))[0]
+        (id,))
+    return filas[0] if filas else None
 
 def buscar_libro_cod(codigo):
-    return consultar("""
+    filas = consultar("""
             SELECT * 
             FROM LIBROS NATURAL JOIN EJEMPLARES 
             WHERE codigo_barras = %s""",
-            (codigo,))[0]
+            (codigo,))
+    return filas[0] if filas else None
 
 def eliminar_1_libro(id):
     return ejecutar(

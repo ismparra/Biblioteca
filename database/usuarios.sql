@@ -28,6 +28,8 @@ grant select on biblioteca.alumnos to 'rol_operador';
 grant select on biblioteca.libros to 'rol_operador';
 grant select on biblioteca.ejemplares to 'rol_operador';
 grant select on biblioteca.prestamos to 'rol_operador';
+-- ve quien es el personal (lista y panel de prestamos) pero no los hash
+grant select (id_bibliotecario, nombre_completo, usuario, rol, estado) on biblioteca.bibliotecarios to 'rol_operador';
 grant execute on procedure biblioteca.registrar_prestamo to 'rol_operador';
 grant execute on procedure biblioteca.registrar_devolucion to 'rol_operador';
 grant execute on procedure biblioteca.consultar_alumno to 'rol_operador';

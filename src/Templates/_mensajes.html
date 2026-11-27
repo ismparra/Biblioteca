@@ -1,0 +1,9 @@
+<div role="status" style="position:fixed; top:20px; left:50%; transform:translateX(-50%); z-index:10000;">
+    {% for tipo, texto in get_flashed_messages(with_categories=true) %}
+    <div onclick="this.remove()" title="Clic para cerrar"
+         style="margin-bottom:8px; padding:12px 24px; border-radius:10px; font-weight:bold; color:white; cursor:pointer;
+                background:{{ '#14532d' if tipo == 'ok' else '#7f1d1d' }};">
+        {{ texto }}
+    </div>
+    {% endfor %}
+</div>

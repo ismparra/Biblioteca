@@ -15,16 +15,12 @@
     <div class="square"></div>
     <div class="square"></div>
     <div class="square"></div>
-    {% if Message %}
-      <div class="alert-message">
-          {{ Message }}
-      </div>
-    {% endif %}
+    {% include "_mensajes.html" %}
 
     <header>
       <div style="display:flex; gap:8px; right:0; position: absolute; ">
-        {%if session and session.rol == "administrador"%}
-        <a class="btn" href="/admin/panel">Admin Panel</a>
+        {%if session and session.rol in ["administrador", "operador"]%}
+        <a class="btn" href="/admin/panel">Panel</a>
         {% endif %}
         <form action="/" method="GET">
           <input

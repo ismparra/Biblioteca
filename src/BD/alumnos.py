@@ -1,4 +1,13 @@
-from BD.connection import consultar, ejecutar
+from BD.connection import consultar, ejecutar, get_connection
+
+def consultar_1_alumno(mat):
+    conexion = get_connection()
+    try:
+        # "", 0, 0 solo apartan el lugar de los parametros OUT
+        res = conexion.cursor().callproc("consultar_alumno", (mat, "", 0, 0))
+        return {"nombre": res[1], "activos": res[2], "vencidos": res[3]}
+    finally:
+        conexion.close()
 
 def insert_1_alumno(name, mat):
     return ejecutar(

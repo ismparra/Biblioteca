@@ -4,7 +4,8 @@ def login(usuario, passw):
         """
         call iniciar_sesion(%s,%s);
         """,
-        (usuario, passw)
+        (usuario, passw),
+        "login"
     )
 
 def buscar_user_by_username(user):
@@ -54,7 +55,8 @@ def eliminar_1_user(id):
 def obtener_usuarios():
     return consultar(
         """
-        SELECT * FROM BIBLIOTECARIOS
+        SELECT id_bibliotecario, nombre_completo, usuario, rol, estado
+        FROM BIBLIOTECARIOS
         """
     )
 

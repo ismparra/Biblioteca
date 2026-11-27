@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
 </head>
 <body>
+{% include "_mensajes.html" %}
 
 <aside class="sidebar">
     <div class="logo">Biblioteca</div>
@@ -19,8 +20,8 @@
         <a href="/admin/panel/prestamos">Prestamos</a>
         {% if user.rol == "administrador" %}
         <a href="/admin/panel/auditorias">Auditorias</a>
-        <a href="/admin/panel/reportes">Reportes</a>
         {% endif %}
+        <a href="/admin/panel/reportes">Reportes</a>
     </nav>
 </aside>
 
@@ -92,6 +93,7 @@
                 <option value="">Selecciona un rol</option>
                 <option value="administrador">Administrador</option>
                 <option value="operador">Operador</option>
+                <option value="consulta">Consulta</option>
             </select>
 
         </div>

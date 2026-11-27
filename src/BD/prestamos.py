@@ -19,6 +19,12 @@ def obtenerPrestamos():
              JOIN BIBLIOTECARIOS b ON p.id_bibliotecario = b.id_bibliotecario;
         """ )
     
+def registrar_1_prestamo(matricula, codigos, bibliotecario, fecha_limite):
+    return ejecutar(
+        "call registrar_prestamo(%s, %s, %s, %s)",
+        (matricula, ",".join(codigos), bibliotecario, fecha_limite)
+    )
+
 def registrar_1_devolucion(codigo):
     return ejecutar(
         "call registrar_devolucion(%s)",
